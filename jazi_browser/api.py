@@ -217,6 +217,49 @@ async def space_eval(space_name: str, js_code: str = Query(...)):
     return result
 
 
+# ---- Cookie Import/Export ----
+
+class CookieImportRequest(BaseModel):
+    file_path: str
+    clear_existing: bool = False
+
+
+@app.post("/space/{space_name}/cookies/export")
+async def space_cookies_export(space_name: str, output_path: str = None):
+    """Export cookies from a space to JSON file."""
+    from .cookies import export_cookies
+
+    space = space_mgr.get(space_name)
+    if not space:
+        raise HTTPException(status_code=404, detail=f"Space '{space_name}' not found")
+
+    output = Path(output_path) if output_path else None
+    result_path = await export_cookies(space.context, output)
+    return {"exported": str(result_path)}
+
+
+@app.post("/space/{space_name}/cookies/import")
+async def space_cookies_import(space_name: str, req: CookieImportRequest):
+    """Import cookies from a JSON file into a space."""
+    from .cookies import import_cookies
+
+    space = space_mgr.get(space_name)
+    if not space:
+        raise HTTPException(status_code=404, detail=f"Space '{space_name}' not found")
+
+    result = await import_cookies(space.context, Path(req.file_path), clear_existing=req.clear_existing)
+    return result
+
+
+@app.get("/space/{space_name}/cookies/inspect")
+async def space_cookies_inspect(space_name: str, file_path: str):
+    """Preview a cookie file without importing."""
+    from .cookies import inspect_cookies
+
+    result = inspect_cookies(Path(file_path))
+    return result
+
+
 # ---- Health & Status ----
 
 @app.get("/health")

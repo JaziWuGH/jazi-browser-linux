@@ -103,6 +103,27 @@ console.log(snap);
 EOF
 ```
 
+### Cookie Import/Export — cross-machine login migration
+
+```bash
+# Export all cookies from a Space
+jazi cookies export --space default
+# → ~/jazi-cookies-20260730-120000.json
+
+# Preview a cookie file
+jazi cookies inspect ~/jazi-cookies-20260730-120000.json
+
+# Import into a Space (with --clear to wipe existing cookies first)
+jazi cookies import ~/jazi-cookies-20260730-120000.json --space myagent --clear
+```
+
+**Cross-platform flow (Windows → Linux):**
+
+1. On Windows Chrome: use [EditThisCookie](https://www.editthiscookie.com/) extension → Export to JSON
+2. Copy JSON file to Linux
+3. On Linux: `jazi cookies import cookies.json`
+4. All login sessions preserved. No re-authentication needed.
+
 ## API Reference
 
 ### Space Management

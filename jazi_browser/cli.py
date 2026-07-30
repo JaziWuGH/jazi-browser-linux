@@ -194,6 +194,34 @@ async def cmd_nodejs(code: str, space_name: str = "default"):
     }))
 
 
+async def cmd_cookies_export(space_name: str, output: str = None):
+    """Export cookies from a Space to a JSON file (via API)."""
+    import httpx
+    async with httpx.AsyncClient() as client:
+        params = {}
+        if output:
+            params["output_path"] = output
+        resp = await client.post(
+            f"http://127.0.0.1:9222/space/{space_name}/cookies/export",
+            params=params,
+        )
+        data = resp.json()
+        print(json.dumps(data, indent=2))
+
+
+async def cmd_cookies_import(file_path: str, space_name: str, clear: bool = False):
+    """Import cookies from a JSON file into a Space (via API)."""
+    import httpx
+    path = str(Path(file_path).resolve())
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(
+            f"http://127.0.0.1:9222/space/{space_name}/cookies/import",
+            json={"file_path": path, "clear_existing": clear},
+        )
+        data = resp.json()
+        print(json.dumps(data, indent=2))
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="jazi — Jazi Browser CLI for AI agents",
@@ -224,6 +252,21 @@ def main():
     nodejs_parser = subparsers.add_parser("nodejs", help="Execute JS tools against a page")
     nodejs_parser.add_argument("--space", "-s", default="default", help="Space name")
 
+    # cookies — import/export
+    cookies_parser = subparsers.add_parser("cookies", help="Import/export browser cookies")
+    cookies_sub = cookies_parser.add_subparsers(dest="cookies_cmd")
+
+    cookies_export = cookies_sub.add_parser("export", help="Export cookies to JSON file")
+    cookies_export.add_argument("--space", "-s", default="default", help="Space to export from")
+    cookies_export.add_argument("--output", "-o", help="Output file path (default: ~/jazi-cookies-<ts>.json)")
+
+    cookies_import = cookies_sub.add_parser("import", help="Import cookies from JSON file")
+    cookies_import.add_argument("file", help="Path to cookie JSON file")
+    cookies_import.add_argument("--space", "-s", default="default", help="Target space")
+    cookies_import.add_argument("--clear", action="store_true", help="Clear existing cookies before import")
+
+    cookies_sub.add_parser("inspect", help="Preview a cookie file without importing").add_argument("file", help="Path to cookie JSON file")
+
     args = parser.parse_args()
 
     if args.command == "serve":
@@ -241,6 +284,17 @@ def main():
         # Read code from stdin
         code = sys.stdin.read()
         asyncio.run(cmd_nodejs(code, args.space))
+    elif args.command == "cookies":
+        if args.cookies_cmd == "export":
+            asyncio.run(cmd_cookies_export(args.space, args.output))
+        elif args.cookies_cmd == "import":
+            asyncio.run(cmd_cookies_import(args.file, args.space, args.clear))
+        elif args.cookies_cmd == "inspect":
+            from jazi_browser.cookies import inspect_cookies
+            result = inspect_cookies(Path(args.file))
+            print(json.dumps(result, indent=2))
+        else:
+            cookies_parser.print_help()
     else:
         parser.print_help()
 
