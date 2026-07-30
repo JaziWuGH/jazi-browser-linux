@@ -2,7 +2,7 @@
 
 **The browser purpose-built for AI agents on Linux.**
 
-Based on [jazi by citrolabs](https://github.com/citrolabs/jazi), adapted for Linux with Playwright + Python.
+Inspired by [ego-lite](https://github.com/citrolabs/ego-lite), reimagined for Linux with Playwright + Python.
 
 ## Why?
 
@@ -16,7 +16,7 @@ AI agents need a browser that:
 
 ```
 ┌─────────────────────────────────────────────┐
-│              jazi                  │
+│                  jazi                        │
 │                                              │
 │  ┌──────────────────────────────────────┐   │
 │  │       FastAPI Server (:9222)         │   │
@@ -137,21 +137,6 @@ Full API docs at `http://127.0.0.1:9222/docs` when server is running.
 - ✅ **HTTP API** — any AI agent can call it via REST
 - ✅ **Parallel execution** — multiple Spaces run concurrently
 - ✅ **Local data** — everything stays on your machine
-
-## Comparison with jazi (macOS)
-
-| Feature | jazi (macOS) | jazi |
-|---------|:---:|:---:|
-| Kernel-level snapshots | ✅ | ✅ (Playwright a11y) |
-| Isolated Spaces | ✅ | ✅ |
-| Chrome login inheritance | ✅ | ✅ |
-| JS-based page control | ✅ | ✅ |
-| Parallel multitasking | ✅ | ✅ |
-| External agent support | ✅ | ✅ (HTTP API) |
-| GUI app | ✅ | ❌ (server + CLI) |
-| macOS | ✅ | ❌ |
-| Linux | ❌ (roadmap) | ✅ |
-| Free & open source | ✅ | ✅ |
 
 ## License
 
