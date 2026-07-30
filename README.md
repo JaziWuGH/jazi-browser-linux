@@ -47,8 +47,8 @@ AI agents need a browser that:
 
 ```bash
 # Clone and install
-git clone <repo-url> jazi
-cd jazi
+git clone https://github.com/JaziWuGH/jazi-browser-linux
+cd jazi-browser-linux
 bash scripts/install.sh
 ```
 
