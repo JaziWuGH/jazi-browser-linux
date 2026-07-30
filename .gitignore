@@ -1,0 +1,5 @@
+jazi_browser/__pycache__/
+*.egg-info/
+__pycache__/
+.env
+*.pyc
