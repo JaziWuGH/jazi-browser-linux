@@ -196,7 +196,7 @@ async def cmd_nodejs(code: str, space_name: str = "default"):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="jazi — AI agent browser control for Linux",
+        description="jazi — Jazi Browser CLI for AI agents",
         prog="jazi",
     )
     subparsers = parser.add_subparsers(dest="command", help="Subcommand")

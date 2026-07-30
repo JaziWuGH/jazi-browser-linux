@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "jazi"
+name = "jazi-browser"
 version = "0.1.0"
-description = "Jazi — a browser purpose-built for AI agents on Linux. Isolated Spaces, Chrome login inheritance, JS-based page control."
+description = "Jazi Browser (Linux) — a browser purpose-built for AI agents. Isolated Spaces, Chrome login inheritance, JS-based page control."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}

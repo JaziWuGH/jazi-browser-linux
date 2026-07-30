@@ -41,7 +41,7 @@ async def lifespan(app: FastAPI):
         mgr = await get_manager()
         # Create default space
         await space_mgr.create("default", mgr, inherit_cookies=True)
-        logger.info("jazi server ready")
+        logger.info("Jazi Browser server ready")
     except Exception as e:
         logger.error(f"Failed to start browser: {e}")
     yield
@@ -50,7 +50,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="jazi",
+    title="Jazi Browser (Linux)",
     description="A browser purpose-built for AI agents on Linux",
     version="0.1.0",
     lifespan=lifespan,

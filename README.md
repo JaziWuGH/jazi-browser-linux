@@ -1,6 +1,6 @@
-# jazi
+# Jazi Browser (Linux)
 
-**The browser purpose-built for AI agents on Linux.**
+**A browser purpose-built for AI agents on Linux.**
 
 Inspired by [ego-lite](https://github.com/citrolabs/ego-lite), reimagined for Linux with Playwright + Python.
 
