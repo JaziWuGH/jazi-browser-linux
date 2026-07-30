@@ -1,0 +1,17 @@
+[Unit]
+Description=Jazi Browser — AI agent browser for Linux
+After=network.target
+
+[Service]
+Type=simple
+User=babata
+WorkingDirectory=/home/babata
+Environment="PATH=/home/babata/.ego-lite/venv/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/home/babata/.ego-lite/venv/bin/jazi serve --headless --port 9228
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -19,7 +19,7 @@ AI agents need a browser that:
 │                  jazi                        │
 │                                              │
 │  ┌──────────────────────────────────────┐   │
-│  │       FastAPI Server (:9222)         │   │
+│  │       FastAPI Server (:9228)         │   │
 │  │   - Space management CRUD            │   │
 │  │   - Tool execution endpoints         │   │
 │  │   - Snapshot retrieval               │   │
@@ -73,20 +73,20 @@ jazi space list
 
 ```bash
 # Navigate to a URL
-curl -X POST http://127.0.0.1:9222/space/myagent/navigate \
+curl -X POST http://127.0.0.1:9228/space/myagent/navigate \
   -H "Content-Type: application/json" \
   -d '{"url": "https://example.com"}'
 
 # Get page snapshot
-curl http://127.0.0.1:9222/space/myagent/snapshot
+curl http://127.0.0.1:9228/space/myagent/snapshot
 
 # Click an element by ref
-curl -X POST http://127.0.0.1:9222/space/myagent/click \
+curl -X POST http://127.0.0.1:9228/space/myagent/click \
   -H "Content-Type: application/json" \
   -d '{"ref": "@e3"}'
 
 # Fill a form
-curl -X POST http://127.0.0.1:9222/space/myagent/fill \
+curl -X POST http://127.0.0.1:9228/space/myagent/fill \
   -H "Content-Type: application/json" \
   -d '{"ref": "@e5", "value": "hello world"}'
 ```
@@ -147,7 +147,7 @@ jazi cookies import ~/jazi-cookies-20260730-120000.json --space myagent --clear
 | GET | `/space/{name}/text` | Get visible text |
 | POST | `/space/{name}/eval` | Evaluate JS |
 
-Full API docs at `http://127.0.0.1:9222/docs` when server is running.
+Full API docs at `http://127.0.0.1:9228/docs` when server is running.
 
 ## Features
 
